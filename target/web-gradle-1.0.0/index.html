@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <title>xx</title>
+    <link rel="shortcut icon" href="assets/imgs/qn_icon.png" type="image/vnd.microsoft.icon">
+    <!-- ===========  base  begin ===========-->
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/plugins/bootstrap/css/animate.min.css" rel="stylesheet" />
+    <link href="assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- ===========  base  end ===========-->
+    <!-- ===========  user  begin ===========-->
+    <link href="Theme/sys.css/m.index.css" rel="stylesheet" />
+    <!-- ===========  user  end ===========-->
+</head>
+
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
+    <div id="wrapper">
+        <!--左侧导航开始-->
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="nav-close">
+                <i class="fa fa-times-circle"></i>
+            </div>
+            <div class="sidebar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element">
+                            <span><img alt="image" class="img-circle" src="assets/imgs/qn_icon.png" /></span>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#" >
+                                <span class="clear">
+                                    <span class="block m-t-xs"><strong class="font-bold" id="u_Name" >当前用户：</strong></span>
+                                    
+                                    <span class="text-muted text-xs block" ><span id="i_am_admin" style="color:red;">管理员</span><b class="caret"></b></span>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+ 
+                                <li>
+                                    <a href="#" >安全退出</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="logo-element">
+                            <img alt="image" class="img-circle" src="assets/imgs/qn_icon.png" />
+                        </div>
+                    </li>
+                    <li>
+                        <a class="J_menuItem" href="javascript:;" data-href="mWelcome.html">
+                            <i class="fa fa-home"></i>
+                            <span class="nav-label">主页</span>
+                            <!--<span class="fa arrow"></span>-->
+                        </a>
+                    </li>
+                   
+                    <li>
+                        <a href="#"><i class="fa fa-envelope"></i> <span class="nav-label">工具箱 </span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                         	<li>
+                                <a class="J_menuItem" href="javascript:;" data-href="./package/packageList.html">主题资源打包</a>
+                            </li>
+                        </ul>
+                    </li>
+                   
+                </ul>
+            </div>
+        </nav>
+        <!--左侧导航结束-->
+        <!--右侧部分开始-->
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="javascript:;" title="收起/展开 菜单"><i class="fa fa-bars"></i> </a>
+                        <div class="form-group navber-mtitle">
+                            <h2>工具箱 </h2>
+                        </div>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                                <i class="fa fa-envelope"></i> <span class="label label-warning">0</span>
+                            </a>
+                           
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                                <i class="fa fa-bell"></i> <span class="label label-primary">0</span>
+                            </a>
+                           
+                    </ul>
+                </nav>
+            </div>
+            <div class="row content-tabs">
+                <button class="roll-nav roll-left J_tabLeft">
+                    <i class="fa fa-backward"></i>
+                </button>
+                <nav class="page-tabs J_menuTabs">
+                    <div class="page-tabs-content">
+                        <a href="javascript:;" class="active J_menuTab" data-id="mWelcome.html">首页</a>
+                    </div>
+
+                </nav>
+                <button class="roll-nav roll-right J_tabRight">
+                    <i class="fa fa-forward"></i>
+                </button>
+                <div class="btn-group roll-nav roll-right">
+                    <button class="dropdown J_tabClose" data-toggle="dropdown">
+                      	  关闭操作<span class="caret"></span>
+
+                    </button>
+                    <ul role="menu" class="dropdown-menu dropdown-menu-right">
+                        <li class="J_tabShowActive">
+                            <a>定位当前选项卡</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="J_tabCloseAll">
+                            <a>关闭全部选项卡</a>
+                        </li>
+                        <li class="J_tabCloseOther">
+                            <a>关闭其他选项卡</a>
+                        </li>
+                    </ul>
+                </div>
+                <a href="#" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+            </div>
+            <div class="row J_mainContent" id="content-main">
+                <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="Theme/mWelcome.html" frameborder="0" data-id="mWelcome.html" seamless></iframe>
+            </div>
+            <div class="footer">
+                <div class="pull-right">
+                    &copy; 2014-2017 <a href="##" target="_blank">###</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ===========  base  begin ===========-->
+    <script src="assets/plugins/jquery/jquery-1.11.1.min.js"></script>
+    <script src="assets/plugins/pace/pace.min.js"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!-- ===========  base  end ===========-->
+    <!-- ===========  module  begin ===========-->
+    <!-- ===========  module  end ===========-->
+    <!-- ===========  user  begin ===========-->
+    <script src="Theme/sys.js/server.js"></script>
+    <script src="Theme/sys.js/sys.index.js"></script>
+    <script src="Theme/sys.js/m.index.js"></script>
+    <!-- ===========  user  end ===========-->
+	
+</body>
+
+</html>
