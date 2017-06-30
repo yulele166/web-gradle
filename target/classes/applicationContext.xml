@@ -31,13 +31,9 @@
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="user" value="root" />
-        <property name="password" value="113003!@#$" />
-         <!-- <property name="user" value="gameweb" />
-        <property name="password" value="w@qn],G0"></property> -->
+        <property name="password" value="xxxxxx" />
         <property name="driverClass" value="com.mysql.jdbc.Driver" />
-       <!--  <property name="jdbcUrl" value="jdbc:mysql://172.16.95.135:3306/game_center" /> -->
-        <!--<property name="jdbcUrl" value="jdbc:mysql://127.0.0.1:3306/game_center" /> -->
-        <property name="jdbcUrl" value="jdbc:mysql://103.231.66.24:3306/game_center" />
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/webgradle" />
         <property name="maxPoolSize" value="20" />
         <property name="minPoolSize" value="2" />
         <property name="initialPoolSize" value="2" />
