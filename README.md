@@ -3,5 +3,6 @@ Java Web版gradle打包工具for android
 <br/>
 后台调用gradle打包接口
 <br/>
-工具演示动态图     
+工具演示动态图
+<br/>
 <img src="web-gradle_show.gif"></img>
