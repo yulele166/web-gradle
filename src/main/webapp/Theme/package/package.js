@@ -157,6 +157,13 @@
                     var posturl = serverUrl +"/pack/uploadZip";
                     mwebupher.c_ZipUploader(posturl, p_id, f_callBack);
                 	
+                },
+                p_show_info: function()
+                {
+                	if(isShowInfo){
+                		isShowInfo=false;
+                		alert('chrome浏览器中，如果点击上传卡顿或没反应，请禁用设置后重试：\nchrome设置-隐私设置和安全性-保护您和您的设备不受危险网站的侵害');
+                	}
                 }
                 
        }
