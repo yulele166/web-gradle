@@ -1,11 +1,6 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 103.231.66.24
-Source Server Version : 50713
-Source Host           : 103.231.66.24:3306
-Source Database       : game_center
-
 Target Server Type    : MYSQL
 Target Server Version : 50713
 File Encoding         : 65001
