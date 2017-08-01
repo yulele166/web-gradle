@@ -81,14 +81,18 @@
                                             $table.bootstrapTable("refresh");
                                             sysdef.p_modal_hide();
                                         }
-                                        else
-                                            alert( p_data.message);
+                                        else{
+                                        	//打包失败隐藏
+                                            $('#myModal1').modal('hide');
+                                        	alert( p_data.message + ":打包失败");
+                                        }
                                     },
                                     error: function (MLHttpRequest, textStatus, errorThrown)
                                     {
                                         console.log('loadFormValidater-error::' + errorThrown);
-                                        stop = 1;
-                                        alert("打包失败！");
+                                        //打包失败隐藏
+                                        $('#myModal1').modal('hide');
+                                    	alert( p_data.message + ":打包失败");
                                     }
                                 });
                             });
@@ -143,7 +147,12 @@
 							alert(rjson.message);
 							return;
 						}
-                        $("#txt_THEMENAME").val(rjson.data);
+                        var str = rjson.data;
+                        if(str.indexOf('test')==0){
+                        	alert("zip包名不能以test开头，请重命名后上传！")
+                        	return;
+                        }
+                        $("#txt_THEMENAME").val(str);
                     };
                     var posturl = serverUrl +"/pack/uploadZip";
                     mwebupher.c_ZipUploader(posturl, p_id, f_callBack);
