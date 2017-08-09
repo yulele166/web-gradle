@@ -1,0 +1,29 @@
+*{padding:0; margin:0;}
+html,body{font-family:Microsoft YaHei,Helvitica,Verdana,Tohoma,Arial,san-serif;margin:0;padding:0;text-decoration:none;}
+body{font: 14px/1.5 "Microsoft YaHei","Lucida Sans Unicode","Myriad Pro","Hiragino Sans GB","Heiti SC",Verdana,simsun;-webkit-text-size-adjust: none;background:#fff;color:#333;min-width:320px;}
+body,div,dl,dt,dd,.mainmenu,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,table{margin:0;padding:0;}
+img {max-width:100%;display:block;border:0;vertical-align:middle;}
+i,em{font-style:normal}
+a{text-decoration:none;blr:expression(this.onFocus=this.blur());outline:none}
+ul,ol,li,dl{list-style-type:none;}
+
+#contact{font-size:16px;color:#333;position:relative;height:auto;overflow:hidden}
+.phone{height:auto;overflow:hidden; width:360px; height:295px; border:#000 1px solid; margin:50px auto}
+.phone img{width:100%;text-align:center}
+/*图片列表*/
+.sys_spec_img li{ float:left;float:left;position:relative; width:20%; margin:1%;height:100px;}
+.sys_spec_img li a{border:2px solid #fff; float:left; background:#fff; display:inline-block; outline:none; width:100%;position: relative;}
+.sys_spec_img li a img{display:block;max-width: 100%;}
+.sys_spec_img li a:hover{ border:2px solid #fff; padding:0; text-decoration:none;}
+.sys_spec_img li i{ position:absolute; width:50px; height:50px; font-size:0; line-height:0; right:-2px; bottom:-2px; background:url(../img/choosed.png) no-repeat right bottom; z-index:99; display:none;}
+.sys_spec_img li.selected a{ border:2px solid #e4393c; padding:0;position: relative;z-index:0}
+.sys_spec_img li.selected i{ display:block;}
+.sys_spec_text li{ float:left; height:28px; position:relative; margin:2px 6px 2px 0; outline:none;}
+.sys_spec_text li a{ height:24px; padding:1px 6px; border:1px solid #ccc; background:#fff; display:inline-block; line-height:24px;}
+.sys_spec_text li a:hover{ border:2px solid #e4393c; padding:0 5px; text-decoration:none;}
+.sys_spec_text li i{ position:absolute; width:10px; height:10px; font-size:0; line-height:0; right:2px; bottom:-2px; background:url(../img/choosed.png) right bottom; z-index:1000; display:none;}
+.sys_spec_text li.selected a{ border:2px solid #e4393c; padding:0 5px;}
+.sys_spec_text li.selected i{ display:block;}
+.sys_spec_img li span{position: absolute;z-index:1000;bottom:-2px;left:2px;display:block;background-color:#e4393c; color:#fff; padding:1% 2%; font-size:10px; float:left}
+
+
