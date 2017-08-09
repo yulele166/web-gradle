@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>xx</title>
+    <title>青柠</title>
     <meta charset="utf-8" />
     <!-- ===========  base  begin ===========-->
     <link href="../../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -13,7 +13,10 @@
     <!-- ===========  module  begin ===========-->
     <link href="../../assets/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet" />
     <link href="../../assets/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" />
+    <!-- <link href="../../assets/plugins/bootstrap-datepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" /> -->
     <link href="../../assets/plugins/file-upload/web-file-up/webuploader.css" rel="stylesheet" />
+    
+    <link href="../../assets/css/menu.css" rel="stylesheet" />
     
     <!-- ===========  module  end ===========-->
     <!-- ===========  user  begin ===========-->
@@ -79,8 +82,9 @@
                                                              <th data-field="themeName" data-sortable="true">资源包名</th>
                                                              <th data-field="themeDesc" data-sortable="true">主题名</th>
                                                              <th data-field="themeChannel" data-sortable="true">渠道</th>
+                                                             <th data-field="iconUrl" data-sortable="true" data-formatter="page_funs.oper_imgurl">icon样式</th>
                                                              <th data-field="createTime" data-sortable="true" data-formatter="page_funs.time_format" data-width="150px">打包时间</th>
-                                                             <th data-formatter="page_funs.oper_fun" data-width="100px">操作</th>
+                                                             <th data-formatter="page_funs.oper_fun" data-width="150px">操作</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody></tbody>
@@ -118,7 +122,7 @@
 		                         <div class="form-group">
 		                            <label class="control-label col-md-4 col-sm-4" for="fullname">应用包名</label>
 		                            <div class="col-md-7 col-sm-6">
-		                                <input class="form-control" type="text" id="txt_APPLICATIONID" name="txt_APPLICATIONID" placeholder="前缀自动添加" required data-bv-notempty-message="不可为空" />
+		                                <input class="form-control" type="text" id="txt_APPLICATIONID" name="txt_APPLICATIONID" placeholder="前缀自动添加" required data-bv-notempty-message="不可为空" onchange="page_funs.verify();"/>
 		                            </div>
 		                        </div>
 		                        <div class="form-group">
@@ -133,11 +137,90 @@
                                         <input class="form-control" type="text" id="txt_THEMEDESC" name="txt_THEMEDESC" placeholder="主题" required data-bv-notempty-message="不可为空"/>
                                     </div>
                                 </div>
-		                        <div class="form-group">
+		                        <!-- <div class="form-group">
 		                            <label class="control-label col-md-4 col-sm-4" for="fullname">渠道</label>
 		                            <div class="col-md-7 col-sm-6">
-		                                <input class="form-control" type="text" id="txt_THEMECHANNEL" name="txt_THEMECHANNEL" placeholder="10" required data-bv-notempty-message="不可为空" />
+		                                <input class="form-control" type="hidden" id="txt_THEMECHANNEL" name="txt_THEMECHANNEL" placeholder="10" value="10" required data-bv-notempty-message="不可为空"/>
 		                            </div>
+		                        </div> -->
+		                        
+		                        <div class="form-group">
+		                            <div class="col-md-7 col-sm-6"  style="display: none;" >
+		                                <input class="form-control" type="hidden" id="txt_ICONSTYLEID" name="txt_ICONSTYLEID"  required data-bv-notempty-message="不可为空"/>
+		                                <input class="form-control" type="hidden" id="txt_ICONSTYLE" name="txt_ICONSTYLE"  required data-bv-notempty-message="不可为空"/>
+		                            </div>
+		                          <!--  <div id="myCarousel" class="col-md-7 col-sm-6 carousel slide" style="width:244px;height:200px;">
+										轮播（Carousel）指标
+										<ol class="carousel-indicators">
+											
+										</ol>   
+										轮播（Carousel）项目
+										<div class="carousel-inner">
+										</div>
+										轮播（Carousel）导航
+										<a class="carousel-control left" href="#myCarousel" 
+										   data-slide="prev" style="font-size:80px;">&lsaquo;</a>
+										<a class="carousel-control right" href="#myCarousel" 
+										   data-slide="next" style="font-size:80px;">&rsaquo;</a>
+									</div>  -->
+									<!-- <input type="hidden" id="aaa" value="" /> -->
+	
+	<div class="sys_item_spec">
+		<dl class="clearfix iteminfo_parameter sys_item_specpara" data-sid="1">
+			<dt>
+		       <label class="control-label col-md-4 col-sm-4" for="fullname">ICON样式</label>
+		    </dt>
+			<dd>
+				<ul class="sys_spec_img">
+					<li data-aid="1">
+						<a href="javascript:;"><img id="0"  src="http://b.mycheer.cn/aapt/style/style1.png" onClick="page_funs.p_select_style(this.id,this.src)" width="96px" height="96px"  /></a>
+						<!-- <span>样式1</span> -->
+						<i></i>
+					</li>
+					<li data-aid="2">
+						<a href="javascript:;"><img id="1"  src="http://b.mycheer.cn/aapt/style/style2.png" onClick="page_funs.p_select_style(this.id,this.src)" width="96px" height="96px"  /></a>
+						<!-- <span>样式2</span> -->
+						<i></i>
+					</li>
+					<li data-aid="3">
+						<a href="javascript:;"><img id="2"  src="http://b.mycheer.cn/aapt/style/style3.png" onClick="page_funs.p_select_style(this.id,this.src)" width="96" height="96px" /></a>
+						<!-- <span>样式3</span> -->
+						<i></i>
+					</li>
+				</ul>
+			</dd>
+			<dt><label class="control-label col-md-4 col-sm-4" for="fullname"></label></dt>
+			<dd>
+				<ul class="sys_spec_img">
+					<li data-aid="4">
+						<a href="javascript:;"><img id="3"  src="http://b.mycheer.cn/aapt/style/style4.png" onClick="page_funs.p_select_style(this.id,this.src)" width="96px" height="96px"  /></a>
+						<!-- <span>样式4</span> -->
+						<i></i>
+					</li>
+					<li data-aid="5">
+						<a href="javascript:;"><img id="4"  src="http://b.mycheer.cn/aapt/style/style5.png" onClick="page_funs.p_select_style(this.id,this.src)" width="96px" height="96px"  /></a>
+						<!-- <span>样式5</span> -->
+						<i></i>
+					</li>
+					<li data-aid="6">
+						<a href="javascript:;"><img id="5"  src="http://b.mycheer.cn/aapt/style/style6.png" onClick="page_funs.p_select_style(this.id,this.src)" width="96px" height="96px" /></a>
+						<!-- <span>样式6</span> -->
+						<i></i>
+					</li>
+				</ul>
+			</dd>
+			<dt><label class="control-label col-md-4 col-sm-4" for="fullname"></label></dt>
+			<dd>
+				<ul class="sys_spec_img">
+					<li data-aid="7">
+						<a href="javascript:;"><img id="6"  src="http://b.mycheer.cn/aapt/style/style7.png" onClick="page_funs.p_select_style(this.id,this.src)" width="96px" height="96px"  /></a>
+						<!-- <span>样式7</span>  -->
+						<i></i>
+					</li>
+				</ul>
+			</dd>
+		</dl> 
+	</div>
 		                        </div>
                         
                 <div class="form-group m-t-35">
@@ -166,6 +249,7 @@
     </div>
     <!--  其他   弹框等 end-->
     
+    <!--  进度条-->
 	<div class="modal fade" data-backdrop="static" tabindex="-1" id="myModal1">  
          <!--窗口声明：-->  
          <div class="modal-dialog modal-lg">  
@@ -191,9 +275,12 @@
     <script src="../../assets/plugins/bootstrap-table/bootstrap-table.min.js"></script>
     <script src="../../assets/plugins/bootstrap-select/bootstrap-select.min.js"></script>
 	<script src="../../assets/plugins/bootstrap-validator/bootstrapValidator.js"></script>
+	<script src="../../assets/plugins/bootstrap-datepicker/js/bootstrap-datetimepicker.js"></script>
+	<script src="../../assets/plugins/bootstrap-datepicker/js/bootstrap-datetimepicker.zh-CN.js"></script>
 	<script src="../../assets/plugins/file-upload/web-file-up/webuploader.min.js"></script>
 	<script src="../../assets/plugins/file-upload/web-file-up/m.webup.her.js"></script>
 	
+	<script src="../../assets/qncms/js/login-utilobj.js"></script>
     <!-- ===========  module  end ===========-->
     <!-- ===========  user  begin ===========-->
     <script src="../sys.js/server.js"></script>

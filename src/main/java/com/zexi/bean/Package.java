@@ -9,13 +9,16 @@ package com.zexi.bean;
  * @time 2017年6月19日 上午10:38:39
  */
 public class Package extends TableElement{
-    private int id;
+
+	private int id;
     private String applicationId;//应用包名
     private String themeName;//主题名
     private String themeDesc;//主题描述
     private String themeChannel;//渠道
     private String createTime;//打包时间
     private String url;//apk地址
+    private int iconId;//icon样式
+    private String iconUrl;//icon样式
     
     
     public int getId() {
@@ -61,5 +64,17 @@ public class Package extends TableElement{
     public void setThemeDesc(String themeDesc) {
         this.themeDesc = themeDesc;
     }
+	public int getIconId() {
+		return iconId;
+	}
+	public void setIconId(int iconId) {
+		this.iconId = iconId;
+	}
+	public String getIconUrl() {
+		return iconUrl;
+	}
+	public void setIconUrl(String iconUrl) {
+		this.iconUrl = iconUrl;
+	}
     
 }

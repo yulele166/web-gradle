@@ -35,7 +35,7 @@ public class AaptController {
     @Autowired
     private MessageService messageService;
     
-    @Get("/getHistory")
+    @Get("/getPacks")
     public TableListRep getHistory(
             @Param("stxt") String stxt,
             @Param("offset") int offset,
@@ -81,4 +81,17 @@ public class AaptController {
         return aaptService.uploadZip(request, file);
         
     }
+    
+	@Get("/del")
+	public ResponseMessage delPack(@Param("cid") String cid) {
+
+		ResponseMessage rm = new ResponseMessage();
+
+		if (cid != null) {
+			aaptService.delPack(Integer.parseInt(cid));
+		}
+
+		return rm;
+
+	}
 }

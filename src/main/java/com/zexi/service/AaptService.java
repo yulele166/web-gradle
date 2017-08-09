@@ -5,7 +5,6 @@ package com.zexi.service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,12 +23,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.peanut.commons.utils.DateUtil;
 import com.zexi.bean.Package;
 import com.zexi.bean.ResponseMessage;
 import com.zexi.bean.ServerConfig;
 import com.zexi.bean.message.rep.TableListRep;
 import com.zexi.dao.AaptDAO;
+import com.zexi.utils.DateUtil;
 import com.zexi.utils.FileUtil;
 
 /**
@@ -60,34 +59,34 @@ public class AaptService {
         if (stxt==null) {
             stxt = "";
         }
-        List<Package> p = aaptDAO.getHistory(stxt.trim(),offset, limit);
+        List<Package> pl = aaptDAO.getHistory(stxt.trim(),offset, limit);
         int total = aaptDAO.getDataCount(stxt.trim());
         
-        tableListRep.setRows(p);
+        tableListRep.setRows(pl);
         tableListRep.setTotal(total);
         return tableListRep;
     }
     
     /**
      * 生成apk包
-     * @param p
+     * @param pl
      * @return
      * 1.调用gradle进行打包
      * 2.打包记录入库
      */
-    public synchronized Map<String,Object> generateApk(Package p) {
+    public synchronized Map<String,Object> generateApk(Package pl) {
         String projectPath = serverConfig.getProjectPath();
         String url = serverConfig.getApkFilePrefix()
                     +DateUtil.forDefaultDatetime(new Date())
-                    +"_"+p.getThemeName()+".apk";
-        p.setUrl(url);
+                    +"_"+pl.getThemeName()+".apk";
+        pl.setUrl(url);
         int newId = 0;
-        boolean flag = buildLauncher(projectPath,p);//判断打包成功或失败
+        boolean flag = buildLauncher(projectPath,pl);//判断打包成功或失败
         if(flag){//打包成功
-            if(isExists(p.getThemeName())){//以前打过包，更新记录时间
-                aaptDAO.updateTime(p.getThemeName());
+            if(isExists(pl)){//以前打过包，更新记录时间
+                aaptDAO.updateInfo(pl);
             }else{
-                newId = aaptDAO.generateApk(p);
+                newId = aaptDAO.generateApk(pl);
             }
         }
         map.put("isSuccess", flag);
@@ -100,8 +99,8 @@ public class AaptService {
      * true 打过  false 未打过
      * @return
      */
-    private boolean isExists(String themeName) {
-        Integer count = aaptDAO.getHistoryByName(themeName);
+    private boolean isExists(Package pkg) {
+        Integer count = aaptDAO.getHistoryByName(pkg);
         return count != 0;
     }
     
@@ -149,7 +148,7 @@ public class AaptService {
      * @param projectPath  项目根目录
      * @param pkg          打包相关配置
      */
-    public static boolean  buildLauncher(String projectPath,Package pkg) {
+    public boolean  buildLauncher(String projectPath,Package pkg) {
         ProjectConnection connection = GradleConnector.newConnector().
                 forProjectDirectory(new File(projectPath)).connect();
         String buildResult = "";
@@ -162,13 +161,13 @@ public class AaptService {
             buildArgs.add("-P" + "THEME_NAME="+pkg.getThemeName());
             buildArgs.add("-P" + "THEME_DESC="+pkg.getThemeDesc());
             buildArgs.add("-P" + "THEME_CHANNEL="+pkg.getThemeChannel());
-            
+            buildArgs.add("-P" + "ICON_STYLE_TYPE="+pkg.getIconId());
             build.withArguments(buildArgs.toArray(new String[] {}));
           
             
             ByteArrayOutputStream baoStream = new ByteArrayOutputStream(1024);
             PrintStream cacheStream = new PrintStream(baoStream);
-            //PrintStream oldStream = System.out;
+            
             System.setOut(cacheStream);//不打印到控制台
             
             build.setStandardOutput(System.out);
@@ -176,11 +175,11 @@ public class AaptService {
             build.run();
             
             buildResult = baoStream.toString();
-            //System.setOut(oldStream);//还原到控制台输出
             
+            log.info(buildResult);
             //打印写入文件
-            FileOutputStream fo = new FileOutputStream("./gradle.out",true);
-            System.setOut(new PrintStream(fo));
+            //FileOutputStream fo = new FileOutputStream("./gradle.out",true);
+            //System.setOut(new PrintStream(fo));
             
             
         } catch (Exception e) {
@@ -193,12 +192,13 @@ public class AaptService {
     
     public static void main(String[] args) {
         String path = "D:/DevelopTools/workspace/NewAutoTheme";
-        Package p = new Package();
-        p.setApplicationId("com.mycheering.launcher.auto.xiaomi");
-        p.setThemeChannel("100041");
-        p.setThemeName("theme_xiaomi");
-        p.setThemeDesc("小米主题");
-        System.out.println(buildLauncher(path,p));
+        Package pl = new Package();
+        pl.setApplicationId("com.mycheering.launcher.auto.xiaomi");
+        pl.setThemeChannel("100041");
+        pl.setThemeName("theme_xiaomi");
+        pl.setThemeDesc("小米主题");
+        AaptService aapt = new AaptService();
+        System.out.println(aapt.buildLauncher(path,pl));
     }
     
     
@@ -222,11 +222,20 @@ public class AaptService {
     }
 
     /**
-     * @param parseInt
+     * @param id
      */
     public void delPack(int id) {
         //先删打包记录
         //再删apk包
         aaptDAO.delPack(id);
+        
     }
+
+	/**
+	 * @return
+	 */
+	public List<Map<Integer,String>> getIconUrl() {
+		
+		return aaptDAO.getIconUrl();
+	}
 }
