@@ -3,6 +3,7 @@
  */
 package com.zexi.controllers;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -50,7 +51,9 @@ public class AaptController {
             @Param("txt_APPLICATIONID") String txt_APPLICATIONID,
             @Param("txt_THEMENAME") String txt_THEMENAME,
             @Param("txt_THEMEDESC") String txt_THEMEDESC,
-            @Param("txt_THEMECHANNEL") String txt_THEMECHANNEL,
+//            @Param("txt_THEMECHANNEL") String txt_THEMECHANNEL,
+            @Param("txt_ICONSTYLE") String txt_ICONSTYLE,
+            @Param("txt_ICONSTYLEID") int txt_ICONSTYLEID,
             @Param("cid") String cid,
             @Param("t") String t
             ){
@@ -62,7 +65,9 @@ public class AaptController {
             p.setApplicationId(txt_APPLICATIONID);
             p.setThemeName(txt_THEMENAME);
             p.setThemeDesc(txt_THEMEDESC);
-            p.setThemeChannel(txt_THEMECHANNEL);
+            //p.setThemeChannel(txt_THEMECHANNEL);
+            p.setIconId(txt_ICONSTYLEID);
+            p.setIconUrl(txt_ICONSTYLE);
             Map<String, Object> map = new ConcurrentHashMap<String, Object>();
             map =  aaptService.generateApk(p);
             
@@ -93,5 +98,10 @@ public class AaptController {
 
 		return rm;
 
+	}
+	@Get("/getIconUrl")
+	public List<Map<Integer,String>> getIconUrl() {
+		
+		return aaptService.getIconUrl();
 	}
 }

@@ -22,5 +22,14 @@ CREATE TABLE `aapt_package_log` (
   `themeChannel` varchar(45) COLLATE utf8_bin DEFAULT NULL COMMENT '渠道',
   `url` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT 'apk地址',
   `createTime` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '打包时间',
+  `iconUrl` varchar(125) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+
+CREATE TABLE `aapt_theme_icon_style` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `iconId` int(4) DEFAULT '0' COMMENT 'icon样式id',
+  `name` varchar(10) COLLATE utf8_bin DEFAULT NULL,
+  `iconUrl` varchar(125) COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin 

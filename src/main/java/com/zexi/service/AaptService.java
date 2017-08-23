@@ -3,8 +3,11 @@
  */
 package com.zexi.service;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,6 +33,7 @@ import com.zexi.bean.message.rep.TableListRep;
 import com.zexi.dao.AaptDAO;
 import com.zexi.utils.DateUtil;
 import com.zexi.utils.FileUtil;
+import com.zexi.utils.OSUtil;
 
 /**
  * @author yulele
@@ -82,11 +86,18 @@ public class AaptService {
         pl.setUrl(url);
         int newId = 0;
         boolean flag = buildLauncher(projectPath,pl);//判断打包成功或失败
+        int returnCode = 0;
         if(flag){//打包成功
-            if(isExists(pl)){//以前打过包，更新记录时间
-                aaptDAO.updateInfo(pl);
-            }else{
-                newId = aaptDAO.generateApk(pl);
+        	if("linux".equals(OSUtil.getOSName())){
+        		//调用shell
+                returnCode = runShell("/data0/operate/download/apks/apk_tool.sh", url.substring(0, url.indexOf(".apk")));
+        	}
+            if(returnCode==0){
+            	if(isExists(pl)){//以前打过包，更新记录时间
+                    aaptDAO.updateInfo(pl);
+                }else{
+                    newId = aaptDAO.generateApk(pl);
+                }
             }
         }
         map.put("isSuccess", flag);
@@ -160,7 +171,7 @@ public class AaptService {
             buildArgs.add("-P" + "APPLICATIONID="+pkg.getApplicationId());
             buildArgs.add("-P" + "THEME_NAME="+pkg.getThemeName());
             buildArgs.add("-P" + "THEME_DESC="+pkg.getThemeDesc());
-            buildArgs.add("-P" + "THEME_CHANNEL="+pkg.getThemeChannel());
+//            buildArgs.add("-P" + "THEME_CHANNEL="+pkg.getThemeChannel());
             buildArgs.add("-P" + "ICON_STYLE_TYPE="+pkg.getIconId());
             build.withArguments(buildArgs.toArray(new String[] {}));
           
@@ -177,10 +188,6 @@ public class AaptService {
             buildResult = baoStream.toString();
             
             log.info(buildResult);
-            //打印写入文件
-            //FileOutputStream fo = new FileOutputStream("./gradle.out",true);
-            //System.setOut(new PrintStream(fo));
-            
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -189,6 +196,37 @@ public class AaptService {
         }
         return buildResult.contains("BUILD SUCCESSFUL");
     }
+    
+    /**
+	 * 调用shell脚本
+	 */
+	private int runShell(String shell_file,String dir_name) {
+		int returnCode = 0;//正常结束
+		try {
+//			Process process = Runtime.getRuntime().exec("chmod 755 ");
+//			process.waitFor();
+            // xx.sh是要执行的shell文件，param1参数值，xx.sh和param1之间要有空格
+            // 多个参数可以在param1后面继续增加，但不要忘记空格！！
+			Process process = Runtime.getRuntime().exec(new String[]{"/bin/sh","-c",shell_file+" "+dir_name});
+			BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			String line = null;
+			StringBuffer sb = new StringBuffer("");
+			while((line=br.readLine()) != null){
+				sb.append(line);
+			}
+			br.close();
+//			System.out.println(sb.toString());
+			returnCode = process.waitFor();
+		} catch (IOException e) {
+			log.info("exe shell IOException");
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			log.info("exe shell InterruptedException");
+		}
+		return returnCode;
+
+	}
     
     public static void main(String[] args) {
         String path = "D:/DevelopTools/workspace/NewAutoTheme";

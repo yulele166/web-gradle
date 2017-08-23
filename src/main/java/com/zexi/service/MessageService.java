@@ -11,8 +11,8 @@ import net.paoding.rose.web.Invocation;
 
 
 /**
- * @author ming.yang
- * @since 2015年11月24日 下午4:44:58
+ * @author 
+ * 
  */
 @Service
 public class MessageService {
